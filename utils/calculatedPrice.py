@@ -12,7 +12,11 @@ def setPriceSucTotal(l):
         total = 16 * suc
         l.setSUCtotal(total - 0.15 * total)
     else:
+<<<<<<< HEAD
         k = round(math.log2(val / 1600))
+=======
+        k = math.log2(val / 1600)
+>>>>>>> 8d3bf9e2e7803c1c869eac91683c959b4ee4cea0
         total = 32 * suc
         sucTotal = math.pow(2, k) * (total - 0.25 * total)
         l.setSUCtotal(sucTotal)

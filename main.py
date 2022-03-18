@@ -30,8 +30,16 @@ for demand in demands:
             if (l.getInput() == path[i] or l.getInput() == path[i + 1]) and (l.getOutput() == path[i] or l.getOutput() == path[i + 1]):
                 l.setPIC(l.getPIC() + flux)
                 setPriceSucTotal(l)
+<<<<<<< HEAD
 
 showGraph(g, nodes, links)
+=======
+                g.removeEdge(l.getInput(), l.getOutput(), weight=l.getSUCtotal())
+
+showGraph(g, nodes, links)
+g.reinitialisationMatrix(False)
+showGraph(g, nodes, links)
+>>>>>>> 8d3bf9e2e7803c1c869eac91683c959b4ee4cea0
 
 premiereSolution = 0
 for l in links:

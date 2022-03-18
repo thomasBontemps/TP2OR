@@ -27,9 +27,17 @@ class Graph:
         """Returns the identifiers of nodes in the graph, as a Python list of integers."""
         return self.__matriceEdgeSUC.viewMatrice()
 
+    def getMatriceSUC1(self):
+        """Returns the identifiers of nodes in the graph, as a Python list of integers."""
+        return self.__matriceEdgeSUC
+
     def getMatriceSUC_previous(self):
         """Returns the identifiers of nodes in the graph, as a Python list of integers."""
         return self.__matriceEdgeSUC_previous.viewMatrice()
+
+    def getMatriceSUC_previous1(self):
+        """Returns the identifiers of nodes in the graph, as a Python list of integers."""
+        return self.__matriceEdgeSUC_previous
 
     # ----------- Nodes operations ---------------------- #
 
@@ -100,9 +108,9 @@ class Graph:
     def reinitialisationMatrix(self, typeMatrix=True):
         """Permit to reinitialise the matrix by an another"""
         if typeMatrix:
-            self.__matriceEdgeSUC.setMatrice(self.getMatriceSUC_previous())
+            self.__matriceEdgeSUC.setMatrice(self.__matriceEdgeSUC_previous.viewMatrice())
         else:
-            self.__matriceEdgeSUC_previous.setMatrice(self.getMatriceSUC())
+            self.__matriceEdgeSUC_previous.setMatrice(self.__matriceEdgeSUC.viewMatrice())
 
     def addEdge(self, sourceId, targetId, weight=1, typeMatrix=True):
         """Adds an edge between the nodes identified by sourceId and targetId in the graph, with default weight 1. Returns True on success, False otherwise."""

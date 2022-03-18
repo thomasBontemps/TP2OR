@@ -10,6 +10,8 @@ def dijkstra(graph, s_debut, s_destination, typeMatrix=True):
     d = (np.ones(length) * np.inf).tolist()
     d[listIds.index(s_debut)] = 0
 
+    stopForce = 0
+
     rg = range(0, length)
     idSommetA = s_debut
     while idSommetA != s_destination:  # and p[-1] != s_fin:
@@ -21,6 +23,9 @@ def dijkstra(graph, s_debut, s_destination, typeMatrix=True):
                 if d[i] < valueMinimum:
                     indexSommetA = i
                     valueMinimum = d[i]
+
+        if indexSommetA == 0 and valueMinimum == np.inf:
+            return [], []
 
         idSommetA = listIds[indexSommetA]
 

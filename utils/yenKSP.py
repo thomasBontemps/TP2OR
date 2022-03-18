@@ -15,10 +15,7 @@ def yenKSP(graph, source, sink, K=5):
         lengthPaths = range(1, len(paths[k])-1)
 
         for i in lengthPaths:
-            if i ==3:
-                print("ok")
             startPath = [idNode for idNode in paths[k][:i]]
-            matrice = graph.getMatriceSUC_previous()
             neighbors = graph.getNeighbors(startPath[-1])
             for neighbor in neighbors:
                 if neighbor not in startPath:
@@ -29,11 +26,12 @@ def yenKSP(graph, source, sink, K=5):
 
 
                     # If path doesn't exist, add to paths
-                    newPath = startPath + path
-                    if newPath not in paths:
-                        if False not in [True if newPath.count(i) == 1 else False for i in newPath]:
-                            paths.insert(rg, newPath)
-                            rg += 1
+                    if path :
+                        newPath = startPath + path
+                        if newPath not in paths:
+                            if False not in [True if newPath.count(i) == 1 else False for i in newPath]:
+                                paths.insert(rg, newPath)
+                                rg += 1
 
                 if rg == K:
                     graph.reinitialisationMatrix(False)

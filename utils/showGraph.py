@@ -34,7 +34,7 @@ def showGraph(graph, nodes, links):
             if (l.getInput() == tuple[0] or l.getInput() == tuple[1]) and (
                     l.getOutput() == tuple[0] or l.getOutput() == tuple[
                 1]):  # Find which link correspond to node A and B
-                label = str(int(l.getSUC()))
+                label = str(int(l.getSUCtotal()))
         plt.plot(axeX, axeY, c='black', linewidth=1)  # Create line between node A to B
         plt.text((axeX[0] + axeX[1]) / 2, (axeY[0] + axeY[1]) / 2, label, fontsize=9, horizontalalignment='center',
                  verticalalignment='center')  # Add value of SUC

@@ -10,7 +10,7 @@ class Link:
         self.__suc = setup_cost
         self.__module_capacity = module_capacity
         self.__module_cost = module_cost
-        self.__sucTotal = 0
+        self.__sucTotal = setup_cost * 3
 
     def getId(self):
         return self.__id

@@ -131,11 +131,7 @@ class Graph:
             else:
                 x = self.__matriceEdgeSUC_previous
             x.placeVal(sourceId, targetId, weight)
-<<<<<<< HEAD
             if not self.__directed:
-=======
-            if self.__directed == False:
->>>>>>> 8d3bf9e2e7803c1c869eac91683c959b4ee4cea0
                 x.placeVal(targetId, sourceId, weight)
             return True
         return False

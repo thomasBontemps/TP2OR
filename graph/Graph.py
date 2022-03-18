@@ -48,7 +48,7 @@ class Graph:
 
     def removeNode(self, id):
         """Removes the node identified by id in the graph. Returns True on success, False otherwise."""
-        if (id in self.__listeNode):
+        if id in self.__listeNode:
             indexId = self.__listeNode.index(id)
             self.__listeNode.remove(id)
             del self.__listeVal[indexId]
@@ -113,9 +113,9 @@ class Graph:
                 x = self.__matriceEdgeSUC
             else:
                 x = self.__matriceEdgeSUC_previous
-            if (np.isnan(x.viewMatrice()[sourceId, targetId]) == True):
+            if np.isnan(x.viewMatrice()[sourceId, targetId]):
                 x.placeVal(sourceId, targetId, weight)
-                if (self.__directed == False):
+                if not self.__directed:
                     x.placeVal(targetId, sourceId, weight)
                 return True
             return False
@@ -131,7 +131,7 @@ class Graph:
             else:
                 x = self.__matriceEdgeSUC_previous
             x.placeVal(sourceId, targetId, weight)
-            if (self.__directed == False):
+            if not self.__directed:
                 x.placeVal(targetId, sourceId, weight)
             return True
         return False
@@ -150,7 +150,8 @@ class Graph:
             return edge
         return None
 
-    def setEdgeWeight(self, sourceId, targetId, weight, typeMatrix=True):  # newEdge is an additional argument to make the difference between existing and new edge
+    def setEdgeWeight(self, sourceId, targetId, weight,
+                      typeMatrix=True):  # newEdge is an additional argument to make the difference between existing and new edge
         """Sets the weight of the edge between the nodes identified by sourceId and targetId in the graph to the specified one. Returns True on success, False otherwise."""
         if (sourceId in self.__listeNode) and (targetId in self.__listeNode):
             sourceId = self.__listeNode.index(sourceId)

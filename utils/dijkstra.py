@@ -10,8 +10,6 @@ def dijkstra(graph, s_debut, s_destination, typeMatrix=True):
     d = (np.ones(length) * np.inf).tolist()
     d[listIds.index(s_debut)] = 0
 
-    stopForce = 0
-
     rg = range(0, length)
     idSommetA = s_debut
     while idSommetA != s_destination:  # and p[-1] != s_fin:

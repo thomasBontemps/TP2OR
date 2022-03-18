@@ -3,8 +3,8 @@ import numpy as np
 
 class Matrice():
 
-    def __init__(self):
-        self.__newMatrice = np.matrix([])
+    def __init__(self, matrice=[]):
+        self.__newMatrice = np.matrix(matrice)
 
     def viewMatrice(self):
         return self.__newMatrice

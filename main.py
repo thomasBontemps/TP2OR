@@ -56,11 +56,10 @@ for l in links:
 
 print("Le coût global de la solution est de ", round(premiereSolution, 2))
 
-pathYenKsp = yenKSP(g, 'N01', 'N19', 17)
+pathYenKsp = yenKSP(g, 'N01', 'N19', 30)
 print("pathYenKsp =", pathYenKsp)
 
 showGraph(g, nodes, links)
 A = g.getMatriceSUC_previous()
 AA = g.getMatriceSUC()
-print("tototo")
 

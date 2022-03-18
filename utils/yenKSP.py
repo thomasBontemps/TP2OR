@@ -2,7 +2,7 @@ from utils.dijkstra import *
 from classes.Node import Node
 
 
-def yenKSP(graph, source, sink, K=5):
+def yenKSP(graph, source, sink, K=8):
     # Determine the shortest path from the source to the sink.
     # Stock all k-shortest beginning by dijkstra of source and destination
     _, littlePathSourceId = dijkstra(graph, source, sink)

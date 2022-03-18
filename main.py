@@ -56,7 +56,7 @@ for l in links:
 
 print("Le coût global de la solution est de ", round(premiereSolution, 2))
 
-pathYenKsp = yenKSP(g, 'N01', 'N19', 7)
+pathYenKsp = yenKSP(g, 'N01', 'N19', 17)
 print("pathYenKsp =", pathYenKsp)
 
 showGraph(g, nodes, links)

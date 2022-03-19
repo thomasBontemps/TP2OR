@@ -12,7 +12,7 @@ def yenKSP(graph, source, sink, K=8):
     k = 0
     while rg < K:
         # The spur node ranges from the first node to the next to last node in the previous k-shortest path.
-        if k < len(paths[k]):
+        if k < len(paths):
             lengthPaths = range(1, len(paths[k]))
 
             for i in lengthPaths:

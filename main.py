@@ -1,9 +1,9 @@
 from file.ReadFile import *
 from graph.Graph import Graph
 from utils.showGraph import showGraph
-from utils.dijkstra import *
 from utils.yenKSP import yenKSP
 from utils.calculatedPrice import *
+from utils.multiFlots import multiFlots
 
 g = Graph(False)
 
@@ -24,6 +24,8 @@ print("Le coût global de la solution est de ", round(premiereSolution, 2))
 
 pathYenKsp = yenKSP(g, 'N01', 'N19', 30)
 print("pathYenKsp =", pathYenKsp)
+
+multiFlots(g, links, demands)
 
 
 

@@ -43,7 +43,6 @@ def readFile(g):
     while i[0] != ')':  # Demands
         d = i.split(' ')
         listDemands.append(Demand(d[4], d[5], d[8]))
-        listDemands.append(i)
         i = lignes.pop(0)
 
     return listNodes, listLinks, listDemands

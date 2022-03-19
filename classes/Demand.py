@@ -3,7 +3,7 @@ class Demand:
     def __init__(self, input, output, flux):
         self.__input = input
         self.__output = output
-        self.__flux = flux
+        self.__flux = float(flux)
 
     def getInput(self):
         return self.__input

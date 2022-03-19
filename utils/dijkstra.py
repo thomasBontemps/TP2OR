@@ -1,11 +1,22 @@
 import numpy as np
+from utils.showGraph import showGraph
 
 
 def dijkstra(graph, s_debut, s_destination, typeMatrix=True):
-    p = []
 
-    length = graph.getOrder()
     listIds = graph.getNodeIds()
+
+    d, p = allIdPath(graph, s_debut, s_destination, listIds, typeMatrix)
+
+    path = littlePath(graph, s_debut, s_destination, listIds, d, p, typeMatrix)
+
+    return d, path
+
+
+def allIdPath(graph, s_debut, s_destination, listIds, typeMatrix):
+    length = graph.getOrder()
+
+    p = []
 
     d = (np.ones(length) * np.inf).tolist()
     d[listIds.index(s_debut)] = 0
@@ -40,7 +51,10 @@ def dijkstra(graph, s_debut, s_destination, typeMatrix=True):
                 d[indexSommetB] = min(
                     d[indexSommetB], d[indexSommetA] + graph.getEdgeWeight(idSommetA, idSommetB)
                 )
+    return d, p
 
+
+def littlePath(graph, s_debut, s_destination, listIds, d, p, typeMatrix):
     path = [s_destination]
     newOutput = s_destination
     while newOutput != s_debut:
@@ -61,6 +75,4 @@ def dijkstra(graph, s_debut, s_destination, typeMatrix=True):
             path.append(newOutput)
 
     path.reverse()
-
-    return d, path
-
+    return path

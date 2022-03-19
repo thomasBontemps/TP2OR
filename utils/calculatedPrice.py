@@ -1,4 +1,6 @@
 import math
+from utils.dijkstra import dijkstra
+
 
 def setPriceSucTotal(l):
     val = l.getPIC()
@@ -17,3 +19,14 @@ def setPriceSucTotal(l):
         sucTotal = math.pow(2, k) * (total - 0.25 * total)
         l.setSUCtotal(sucTotal)
 
+
+def setPriceEdge(g, links, input, output, flux):
+    _, path = dijkstra(g, input, output, links)
+
+    rg = range(0, len(path) - 1)
+    for i in rg:
+        for l in links:
+            if (l.getInput() == path[i] or l.getInput() == path[i + 1]) and (
+                    l.getOutput() == path[i] or l.getOutput() == path[i + 1]):
+                l.setPIC(l.getPIC() + flux)
+                setPriceSucTotal(l)

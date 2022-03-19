@@ -33,8 +33,8 @@ def readFile(g):
         l = Link(values[2], values[4], values[5], float(values[7]), float(values[8]), float(values[9]),
                  float(values[10]), float(values[12]), float(values[13]))
         listLinks.append(l)
-        g.addEdge(values[4], values[5], l.getSUCtotal())  # mettre le set-up cost pour avoir le chemin le plus court
-        g.addEdge(values[4], values[5], l.getSUCtotal(), typeMatrix=False)  # mettre le set-up cost pour avoir le chemin le plus court
+        g.addEdge(values[4], values[5], float(values[10])*3)  # mettre le set-up cost total pour avoir le chemin le plus court
+        g.addEdge(values[4], values[5], float(values[10])*3, typeMatrix=False)  # mettre le set-up cost total pour avoir le chemin le plus court
         i = lignes.pop(0)
 
     i = lignes.pop(0)

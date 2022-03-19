@@ -11,7 +11,6 @@ nodes, links, demands = readFile(g)
 
 listIds = g.getNodeIds()
 
-showGraph(g, nodes, links)
 
 listPaths = []
 for demand in demands:
@@ -21,21 +20,13 @@ for demand in demands:
     output = d[5]
 
     flux = float(d[8])
+    setPriceEdge(g, links, input, output, flux)
 
-    _, path = dijkstra(g, input, output)
 
-    rg = range(0, len(path) - 1)
-    for i in rg:
-        for l in links:
-            if (l.getInput() == path[i] or l.getInput() == path[i + 1]) and (l.getOutput() == path[i] or l.getOutput() == path[i + 1]):
-                l.setPIC(l.getPIC() + flux)
-                setPriceSucTotal(l)
-
-showGraph(g, nodes, links)
+g.reinitialisationMatrix()
 
 premiereSolution = 0
 for l in links:
-    print(l.getSUCtotal())
     premiereSolution += l.getSUCtotal()
 
 print("Le coût global de la solution est de ", round(premiereSolution, 2))
@@ -43,4 +34,5 @@ print("Le coût global de la solution est de ", round(premiereSolution, 2))
 pathYenKsp = yenKSP(g, 'N01', 'N19', 30)
 print("pathYenKsp =", pathYenKsp)
 
-showGraph(g, nodes, links)
+
+

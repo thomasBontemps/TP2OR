@@ -79,7 +79,7 @@ class Graph:
         else:
             x = self.__matriceEdgeSUC_previous
         if id in self.__listeNode:
-            listNeighbor = x.viewMatrice().tolist()
+            listNeighbor = Matrice(x.viewMatrice()).viewMatrice().tolist()
             listNeighbor = listNeighbor[self.__listeNode.index(id)]
             placeNeighbor = []
             positionNeighbor = []
@@ -140,18 +140,17 @@ class Graph:
         """Returns the weight of the edge between the nodes identified by sourceId and targetId in the graph (None if the specified edge does not exist)."""
         if (sourceId in self.__listeNode) and (targetId in self.__listeNode):
             if typeMatrix:
-                edge = self.__matriceEdgeSUC.viewMatrice()[
+                edge = Matrice(self.__matriceEdgeSUC.viewMatrice()).viewMatrice()[
                     self.__listeNode.index(sourceId), self.__listeNode.index(targetId)]
             else:
-                edge = self.__matriceEdgeSUC_previous.viewMatrice()[
+                edge = Matrice(self.__matriceEdgeSUC_previous.viewMatrice()).viewMatrice()[
                     self.__listeNode.index(sourceId), self.__listeNode.index(targetId)]
             if np.isnan(edge):
                 return None
             return edge
         return None
 
-    def setEdgeWeight(self, sourceId, targetId, weight,
-                      typeMatrix=True):  # newEdge is an additional argument to make the difference between existing and new edge
+    def setEdgeWeight(self, sourceId, targetId, weight, typeMatrix=True):  # newEdge is an additional argument to make the difference between existing and new edge
         """Sets the weight of the edge between the nodes identified by sourceId and targetId in the graph to the specified one. Returns True on success, False otherwise."""
         if (sourceId in self.__listeNode) and (targetId in self.__listeNode):
             sourceId = self.__listeNode.index(sourceId)
@@ -160,9 +159,9 @@ class Graph:
                 x = self.__matriceEdgeSUC
             else:
                 x = self.__matriceEdgeSUC_previous
-            if np.isnan(x.viewMatrice()[sourceId, targetId]) == False:
+            if not np.isnan(x.viewMatrice()[sourceId, targetId]):
                 x.placeVal(sourceId, targetId, weight)
-                if self.__directed != True:
+                if not self.__directed:
                     x.placeVal(targetId, sourceId, weight)
                 return True
             return False

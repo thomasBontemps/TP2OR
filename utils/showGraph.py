@@ -2,9 +2,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def showGraph(graph, nodes, links):
+def showGraph(graph, nodes, links, typeMatrix=True):
     fig, ax = plt.subplots()
-    matrice = np.asarray(graph.getMatriceSUC())  # Get matrix of connection between each node
+    if typeMatrix:
+        matrice = np.asarray(graph.getMatriceSUC())  # Get matrix of connection between each node
+    else:
+        matrice = np.asarray(graph.getMatriceSUC_previous())  # Get matrix of connection between each node
     ids = graph.getNodeIds()  # Get all nodes
     rg = range(0, graph.getOrder())
     x = []
@@ -32,8 +35,7 @@ def showGraph(graph, nodes, links):
         label = ''
         for l in links:
             if (l.getInput() == tuple[0] or l.getInput() == tuple[1]) and (
-                    l.getOutput() == tuple[0] or l.getOutput() == tuple[
-                1]):  # Find which link correspond to node A and B
+                    l.getOutput() == tuple[0] or l.getOutput() == tuple[1]):  # Find which link correspond to node A and B
                 label = str(int(l.getSUCtotal()))
         plt.plot(axeX, axeY, c='black', linewidth=1)  # Create line between node A to B
         plt.text((axeX[0] + axeX[1]) / 2, (axeY[0] + axeY[1]) / 2, label, fontsize=9, horizontalalignment='center',

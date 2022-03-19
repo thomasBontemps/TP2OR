@@ -11,17 +11,8 @@ nodes, links, demands = readFile(g)
 
 listIds = g.getNodeIds()
 
-
-listPaths = []
 for demand in demands:
-    d = demand.split(' ')
-
-    input = d[4]
-    output = d[5]
-
-    flux = float(d[8])
-    setPriceEdge(g, links, input, output, flux)
-
+    setPriceEdge(g, links, demand.getInput(), demand.getOutput(), demand.getFlux())
 
 g.reinitialisationMatrix()
 

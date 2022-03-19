@@ -1,5 +1,6 @@
 from classes.Link import Link
 from classes.Node import Node
+from classes.Demand import Demand
 
 
 def readFile(g):
@@ -40,6 +41,8 @@ def readFile(g):
     i = lignes.pop(0)
     i = lignes.pop(0)
     while i[0] != ')':  # Demands
+        d = i.split(' ')
+        listDemands.append(Demand(d[4], d[5], d[8]))
         listDemands.append(i)
         i = lignes.pop(0)
 

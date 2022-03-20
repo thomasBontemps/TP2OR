@@ -14,18 +14,22 @@ listIds = g.getNodeIds()
 for demand in demands:
     setPriceEdge(g, links, demand.getInput(), demand.getOutput(), demand.getFlux())
 
-g.reinitialisationMatrix()
+#showGraph(g, nodes, links)
 
 premiereSolution = 0
 for l in links:
     premiereSolution += l.getSUCtotal()
+    print("src = ", l.getInput(), "\tOutput = ", l.getOutput(), "\t suctotal = ",l.getSUCtotal())
+    #l.reinitialisationSUCtotal(g)
 
 print("Le coût global de la solution est de ", round(premiereSolution, 2))
 
 pathYenKsp = yenKSP(g, 'N01', 'N19', 30)
 print("pathYenKsp =", pathYenKsp)
 
-multiFlots(g, links, demands)
+#showGraph(g, nodes, links)
+
+multiFlots(g, links, demands, nodes)
 
 
 

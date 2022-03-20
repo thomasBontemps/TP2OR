@@ -41,10 +41,10 @@ def yenKSP(graph, source, sink, K=8):
                 if rg == K:
                     return paths
         else:
-            paths.insert(rg, [])
-            rg += 1
+            return paths
 
 
         graph.reinitialisationMatrix()
         k += 1
     return paths
+

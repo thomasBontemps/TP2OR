@@ -62,3 +62,7 @@ class Link:
 
     def setModuleCost(self, mc):
         self.__module_cost = mc
+
+    def reinitialisationSUCtotal(self, graph):
+        self.__sucTotal = self.__suc + 2 * self.__suc
+        graph.removeEdge(self.__input, self.__output, self.__sucTotal)

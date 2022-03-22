@@ -3,7 +3,9 @@ from utils.dijkstra import dijkstra
 
 
 def getVal(suc, val):
-    if 0 < val <= 200:
+    if val == 0:
+        return 0
+    elif 0 < val <= 200:
         return suc + 2 * suc
     elif 200 < val <= 800:
         total = 8 * suc

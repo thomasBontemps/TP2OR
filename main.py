@@ -29,7 +29,7 @@ print("pathYenKsp =", pathYenKsp)
 
 #showGraph(g, nodes, links)
 
-flotProblem = multiFlots(g, links, demands, nodes)
+flotProblem = multiFlots(g, links, demands)
 
 i = 0
 sommmeTotal = 0
@@ -37,6 +37,8 @@ for fp in flotProblem:
     sommmeTotal += getVal(links[i].getSUC(), fp.value())
     i += 1
 
+print(flotProblem)
+print(len(flotProblem))
 print(sommmeTotal)
 
 

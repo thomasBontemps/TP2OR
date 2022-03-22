@@ -5,9 +5,12 @@ from utils.calculatedPrice import getVal
 from utils.showGraph import showGraph
 
 
-def multiFlots(graphe, links, demands, nodes):
+def multiFlots(graphe, links, demands):
 
-    capaciteList = [l.getPIC() for l in links]
+    lengthLinks = len(links)
+    rangeLinks = range(0, lengthLinks)
+
+    capaciteList = [i for i in rangeLinks]
     setupCostTotalList = [l.getSUCtotal() for l in links]
 
     X = pulp.LpVariable.dicts("x", capaciteList, lowBound=0, cat="Continuous")
@@ -16,15 +19,13 @@ def multiFlots(graphe, links, demands, nodes):
 
     flotProblem += (
         pulp.lpSum(
-            setupCostTotalList
+            [getVal(l.getSUC(), X[links.index(l)]) for l in links]
         ),
         "Total_cost"
     )
 
     # Definition of the constraints
 
-    lengthLinks = len(links)
-    rangeLinks = range(0, lengthLinks)
 
     N = []
     flux = []
@@ -45,15 +46,15 @@ def multiFlots(graphe, links, demands, nodes):
         for i in rangeN_prime:
             multiplicity = N_prime[i]
             if multiplicity > 0:
-                listX.append(multiplicity * X[links[i].getPIC()])
+                listX.append(multiplicity * X[i])
 
         # Contrainte 1 : sum(pi) >= flux
         flotProblem += pulp.lpSum(listX) >= demand.getFlux(), "demande_" + str(demands.index(demand))
 
         flux.append(demand.getFlux())
 
-    # Contrainte 2 : sum(capacité d'une arrete) <= sum(flux totaux passant par cette arrête
-    listCapaciteFlux = [ [X[l.getPIC()], 0] for l in links]
+    # Contrainte 2 : sum(capacité d'une arrete) <= sum(flux totaux passant par cette arrête)
+    listCapaciteFlux = [ [X[i], 0] for i in rangeLinks]
 
     rangeN = range(0, len(N))
 
@@ -63,18 +64,22 @@ def multiFlots(graphe, links, demands, nodes):
                 listCapaciteFlux[j][1] += flux[i]
 
     for tupleCapaciteFlux in listCapaciteFlux:
-        flotProblem += tupleCapaciteFlux[0] <= tupleCapaciteFlux[1]
+        print(str(tupleCapaciteFlux[0]))
+        flotProblem += tupleCapaciteFlux[0] <= tupleCapaciteFlux[1], "capaciteMax_" + str(tupleCapaciteFlux[0])
+
+    # Contrainte 3
+    flotProblem += pulp.lpSum(X) == sum(flux), "Flux"
 
     flotProblem.solve()
-    print("Status : ", pulp.LpStatus[flotProblem.status])
+    #print("Status : ", pulp.LpStatus[flotProblem.status])
 
     # OUTPUT
-    print("Solution flot :")
+    #print("Solution flot :")
     demande = "demande: "
-    print(X)
+    #print(X)
     for x in X.values():
         demande += str(x.value()) + ", "
-    print(demande)
+    #print(demande)
 
     return X.values()
 

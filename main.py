@@ -19,7 +19,7 @@ for demand in demands:
 premiereSolution = 0
 for l in links:
     premiereSolution += l.getSUCtotal()
-    print("src = ", l.getInput(), "\tOutput = ", l.getOutput(), "\t suctotal = ",l.getSUCtotal())
+    #print("src = ", l.getInput(), "\tOutput = ", l.getOutput(), "\t suctotal = ",l.getSUCtotal())
     #l.reinitialisationSUCtotal(g)
 
 print("Le coût global de la solution est de ", round(premiereSolution, 2))
@@ -29,7 +29,15 @@ print("pathYenKsp =", pathYenKsp)
 
 #showGraph(g, nodes, links)
 
-multiFlots(g, links, demands, nodes)
+flotProblem = multiFlots(g, links, demands, nodes)
+
+i = 0
+sommmeTotal = 0
+for fp in flotProblem:
+    sommmeTotal += getVal(links[i].getSUC(), fp.value())
+    i += 1
+
+print(sommmeTotal)
 
 
 

@@ -65,4 +65,5 @@ class Link:
 
     def reinitialisationSUCtotal(self, graph):
         self.__sucTotal = self.__suc + 2 * self.__suc
+        self.__pic = 0
         graph.removeEdge(self.__input, self.__output, self.__sucTotal)

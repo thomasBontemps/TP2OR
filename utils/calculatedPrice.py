@@ -2,22 +2,28 @@ import math
 from utils.dijkstra import dijkstra
 
 
-def setPriceSucTotal(l):
-    val = l.getPIC()
-    suc = l.getSUC()
+def getVal(suc, val):
     if 0 < val <= 200:
-        l.setSUCtotal(suc + 2 * suc)
+        return suc + 2 * suc
     elif 200 < val <= 800:
         total = 8 * suc
-        l.setSUCtotal(total - 0.1 * total)
-    elif 800 < val <= 1600:
+        return total - 0.1 * total
+    if 800 < val <= 1600:
         total = 16 * suc
-        l.setSUCtotal(total - 0.15 * total)
+        return total - 0.15 * total
     else:
         k = round(math.log2(val / 1600))
         total = 32 * suc
         sucTotal = math.pow(2, k) * (total - 0.25 * total)
-        l.setSUCtotal(sucTotal)
+        return sucTotal
+
+
+
+
+def setPriceSucTotal(l):
+    val = l.getPIC()
+    suc = l.getSUC()
+    l.setSUCtotal(getVal(suc, val))
 
 
 def setPriceEdge(g, links, input, output, flux):

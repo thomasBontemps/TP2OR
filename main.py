@@ -9,8 +9,6 @@ g = Graph(False)
 
 nodes, links, demands = readFile(g)
 
-listIds = g.getNodeIds()
-
 for demand in demands:
     setPriceEdge(g, links, demand.getInput(), demand.getOutput(), demand.getFlux())
 
@@ -37,9 +35,7 @@ for fp in flotProblem:
     sommmeTotal += getVal(links[i].getSUC(), fp.value())
     i += 1
 
-print(flotProblem)
-print(len(flotProblem))
-print(sommmeTotal)
+print("Avec la méthode de Pulp, nous obtenons un SUC total de :",sommmeTotal)
 
 
 

@@ -2,6 +2,7 @@ import math
 from utils.dijkstra import dijkstra
 
 
+# Permet de calculer le SUC total à partir du SUC et d'une valeur de la branche
 def getVal(suc, val):
     if val == 0:
         return 0
@@ -20,14 +21,14 @@ def getVal(suc, val):
         return sucTotal
 
 
-
-
+# Permet d'affecter la nouvelle valeur du SUC total en fonction du SUC et de la capatacité du lien
 def setPriceSucTotal(l):
     val = l.getPIC()
     suc = l.getSUC()
     l.setSUCtotal(getVal(suc, val))
 
 
+# Permet d'ajouter un flux à une branche par rapport au plus court chemin entre l'input et l'output
 def setPriceEdge(g, links, input, output, flux):
     _, path = dijkstra(g, input, output, links)
 

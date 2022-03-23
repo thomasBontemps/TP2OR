@@ -2,17 +2,23 @@ import numpy as np
 from utils.showGraph import showGraph
 
 
+# Récupérer le plus petit chemin
 def dijkstra(graph, s_debut, s_destination, typeMatrix=True):
 
+    # Récupération de la liste des noeuds du graphe
     listIds = graph.getNodeIds()
 
+    # d : Distance entre chaque noeud par rapport au noeud début jusqu'au noeud de fin
+    # p : Liste des noeuds utilisés par le path
     d, p = allIdPath(graph, s_debut, s_destination, listIds, typeMatrix)
 
+    # Récupérer le plus petit path
     path = littlePath(graph, s_debut, s_destination, listIds, d, p, typeMatrix)
 
     return d, path
 
 
+# Retourne la distance entre chaque noeud par rapport à au début
 def allIdPath(graph, s_debut, s_destination, listIds, typeMatrix):
     length = graph.getOrder()
 
@@ -23,7 +29,7 @@ def allIdPath(graph, s_debut, s_destination, listIds, typeMatrix):
 
     rg = range(0, length)
     idSommetA = s_debut
-    while idSommetA != s_destination:  # and p[-1] != s_fin:
+    while idSommetA != s_destination:
         # Choisir un sommet de plus petite distance hors de P
         indexSommetA = 0
         valueMinimum = np.inf
@@ -54,6 +60,7 @@ def allIdPath(graph, s_debut, s_destination, listIds, typeMatrix):
     return d, p
 
 
+# Récupérer le plus petit chemin entre le début et la destination par rapport à la nouvelle liste créée
 def littlePath(graph, s_debut, s_destination, listIds, d, p, typeMatrix):
     path = [s_destination]
     newOutput = s_destination

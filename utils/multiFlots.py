@@ -11,7 +11,6 @@ def multiFlots(graphe, links, demands):
     rangeLinks = range(0, lengthLinks)
 
     capaciteList = [i for i in rangeLinks]
-    setupCostTotalList = [l.getSUCtotal() for l in links]
 
     X = pulp.LpVariable.dicts("x", capaciteList, lowBound=0, cat="Continuous")
 
@@ -67,7 +66,7 @@ def multiFlots(graphe, links, demands):
         print(str(tupleCapaciteFlux[0]))
         flotProblem += tupleCapaciteFlux[0] <= tupleCapaciteFlux[1], "capaciteMax_" + str(tupleCapaciteFlux[0])
 
-    # Contrainte 3
+    # Contrainte 3 : Il doit il y avoir autant de capacité que de flux
     flotProblem += pulp.lpSum(X) == sum(flux), "Flux"
 
     flotProblem.solve()

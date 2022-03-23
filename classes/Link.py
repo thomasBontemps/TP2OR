@@ -64,6 +64,7 @@ class Link:
         self.__module_cost = mc
 
     def reinitialisationSUCtotal(self, graph):
+        """Permet de réinitialiser les valeurs servant à calculer le SUC_total / Dans ce cas, l'ajout du graphe permet de réinitialiser les poids entre l'input et l'output"""
         self.__sucTotal = self.__suc + 2 * self.__suc
         self.__pic = 0
         graph.removeEdge(self.__input, self.__output, self.__sucTotal)

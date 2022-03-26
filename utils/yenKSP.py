@@ -43,7 +43,6 @@ def yenKSP(graph, source, sink, K=8):
         else:
             return paths
 
-
         graph.reinitialisationMatrix()
         k += 1
     return paths

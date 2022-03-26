@@ -13,7 +13,7 @@ def dijkstra(graph, s_debut, s_destination, typeMatrix=True):
     d, p = allIdPath(graph, s_debut, s_destination, listIds, typeMatrix)
 
     # Récupérer le plus petit path
-    path = littlePath(graph, s_debut, s_destination, listIds, d, p, typeMatrix)
+    path = littlePath(s_debut, p)
 
     return d, path
 
@@ -29,23 +29,32 @@ def allIdPath(graph, s_debut, s_destination, listIds, typeMatrix):
 
     rg = range(0, length)
     idSommetA = s_debut
-    while idSommetA != s_destination:
+
+    listTupleLink = [(None, idSommetA)]
+    while len(p) != length:
         # Choisir un sommet de plus petite distance hors de P
         indexSommetA = 0
         valueMinimum = np.inf
+        myListNode = [tupleP[1] for tupleP in p]
         for i in rg:
-            if listIds[i] not in p:
+            if listIds[i] not in myListNode:
                 if d[i] < valueMinimum:
                     indexSommetA = i
                     valueMinimum = d[i]
 
+        # Eviter les boucles infinies s'il n'y a pas de voisins
         if indexSommetA == 0 and valueMinimum == np.inf:
             return [], []
 
         idSommetA = listIds[indexSommetA]
 
         # Mettre sommet A dans p
-        p.append(idSommetA)
+        for tupleLink in listTupleLink:
+            if tupleLink[1] == idSommetA:
+                p.append(tupleLink)
+                listTupleLink.remove(tupleLink)
+        if idSommetA == s_destination:
+            return d, p
 
         # Voisin du sommet A
         voisins = graph.getNeighbors(idSommetA, typeMatrix=typeMatrix)
@@ -53,33 +62,27 @@ def allIdPath(graph, s_debut, s_destination, listIds, typeMatrix):
             if voisin not in p and voisin != "":
                 # MAJ du chemin par le voisin
                 indexSommetB = listIds.index(voisin)
-                idSommetB = listIds[indexSommetB]
                 d[indexSommetB] = min(
-                    d[indexSommetB], d[indexSommetA] + graph.getEdgeWeight(idSommetA, idSommetB)
+                    d[indexSommetB], d[indexSommetA] + graph.getEdgeWeight(idSommetA, voisin)
                 )
+                newTupleLink = (idSommetA, voisin)
+                if newTupleLink not in listTupleLink:
+                    listTupleLink.append(newTupleLink)
     return d, p
 
 
 # Récupérer le plus petit chemin entre le début et la destination par rapport à la nouvelle liste créée
-def littlePath(graph, s_debut, s_destination, listIds, d, p, typeMatrix):
-    path = [s_destination]
-    newOutput = s_destination
-    while newOutput != s_debut:
-        neighbors = graph.getNeighbors(newOutput, typeMatrix=typeMatrix)
-        listValue = []
-        for neighbor in neighbors:
-            if neighbor in p:
-                valuePath = d[listIds.index(neighbor)]
-                if valuePath < d[listIds.index(newOutput)]:
-                    listValue.append(valuePath)
-        if listValue:
-            value = min(listValue)
-            newOutput = listIds[d.index(value)]
-        if path[-1] == newOutput:
-            path = []
-            newOutput = s_debut
-        else:
-            path.append(newOutput)
+def littlePath(s_debut, p):
+    path = []
+    if p:
+        newOutput = p[-1]
+        path = [newOutput[1]]
+        while newOutput[1] != s_debut:
+            idxLittleNeighbor = 0
+            while p[idxLittleNeighbor][1] != newOutput[0]:
+                idxLittleNeighbor += 1
+            newOutput = p[idxLittleNeighbor]
+            path.append(newOutput[1])
 
-    path.reverse()
+        path.reverse()
     return path

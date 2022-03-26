@@ -9,6 +9,9 @@ g = Graph(False)
 
 nodes, links, demands = readFile(g)
 
+#showGraph(g, nodes, links)
+
+# Glouton
 for demand in demands:
     setPriceEdge(g, links, demand.getInput(), demand.getOutput(), demand.getFlux())
 
@@ -20,9 +23,11 @@ for l in links:
     #print("src = ", l.getInput(), "\tOutput = ", l.getOutput(), "\t suctotal = ",l.getSUCtotal())
     l.reinitialisationSUCtotal(g)
 
+#showGraph(g, nodes, links)
+
 print("Le coût global de la solution est de ", round(premiereSolution, 2))
 
-pathYenKsp = yenKSP(g, 'N01', 'N19', 30)
+pathYenKsp = yenKSP(g, 'N01', 'N11', 2)
 print("pathYenKsp =", pathYenKsp)
 
 #showGraph(g, nodes, links)
@@ -37,9 +42,6 @@ for fp in flotProblem:
     sommmeTotal += links[i].getSUCtotal()
     i += 1
 
-showGraph(g, nodes, links)
-
 print("Avec la méthode de Pulp, nous obtenons un SUC total de :",sommmeTotal)
 
-
-
+showGraph(g, nodes, links)

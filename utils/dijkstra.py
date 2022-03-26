@@ -15,7 +15,6 @@ def dijkstra(graph, s_debut, s_destination, typeMatrix=True):
     # Récupérer le plus petit path
     path = littlePath(graph, s_debut, listIds, p, d)
 
-    print(path)
     return d, path
 
 
@@ -30,7 +29,6 @@ def allIdPath(graph, s_debut, s_destination, listIds, typeMatrix):
 
     rg = range(0, length)
     idSommetA = s_debut
-    print("debut =",s_debut,"\tdestination =",s_destination,)
     listTupleLink = [(None, idSommetA)]
     while idSommetA != s_destination:
         # Choisir un sommet de plus petite distance hors de P
@@ -74,8 +72,6 @@ def allIdPath(graph, s_debut, s_destination, listIds, typeMatrix):
 
 # Récupérer le plus petit chemin entre le début et la destination par rapport à la nouvelle liste créée
 def littlePath(graph, s_debut, listIds, p, d):
-    print(d)
-    print(p)
     path = []
     if p:
         lengthP = len(p)
@@ -87,8 +83,6 @@ def littlePath(graph, s_debut, listIds, p, d):
                 tupleNextInputOutput = p[idxLittleNeighbor]
                 if tupleNextInputOutput[1] == newOutput[0]:
                     if tupleNextInputOutput[0] is not None:
-                        print(tupleNextInputOutput[0],tupleNextInputOutput[1])
-                        print(d[listIds.index(tupleNextInputOutput[0])] + graph.getEdgeWeight(tupleNextInputOutput[0], tupleNextInputOutput[1]))
                         if d[listIds.index(newOutput[0])] == (d[listIds.index(tupleNextInputOutput[0])] + graph.getEdgeWeight(tupleNextInputOutput[0], tupleNextInputOutput[1])):
                             newOutput = tupleNextInputOutput
                             path.append(newOutput[1])
